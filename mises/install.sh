@@ -75,18 +75,17 @@ mv $HOME/go/bin/$MIS /usr/bin/
 
 # GenTx generation
 $MIS config chain-id $MIS_ID
-$MIS config keyring-backend test
 
 # Init generation
 $MIS init $MIS_NODENAME --chain-id $MIS_ID
 
 # Download genesis and addrbook
 cd $HOME
-curl $MIS_GENESIS | jq .result.genesis > ~/$MIS_FOLDER/config/genesis.json
+curl -s $MIS_GENESIS | jq .result.genesis > ~/$MIS_FOLDER/config/genesis.json
 
 # Set Seeds And Peers
 #SEEDS=""
-PEERS="40a8318fa18fa9d900f4b0d967df7b1020689fa0@e1.mises.site:26656"
+PEERS="40889503320199c676570b417b132755d0414332@rpc.gw.mises.site:26656"
 #sed -i.default "s/^seeds *=.*/seeds = \"$SEEDS\"/;" $HOME/$MIS_FOLDER/config/config.toml
 sed -i.default "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/;" $HOME/$MIS_FOLDER/config/config.toml
 
