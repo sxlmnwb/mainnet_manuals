@@ -52,7 +52,7 @@ echo ""
 sudo apt-get update && sudo apt-get upgrade -y
 
 # Package
-sudo apt-get install curl pkg-config libssl-dev liblz4-tool chrony bsdmainutils clang tar build-essential ncdu git wget jq make gcc rustc cargo tmux unzip -y
+sudo apt install curl git jq lz4 build-essential -y
 
 # Install GO
 ver="1.18.2"
@@ -65,7 +65,7 @@ echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
 source ~/.bash_profile
 go version
 
-# Get testnet version of mis
+# Get mainnet version of mises
 cd $HOME
 git clone -b $MIS_VER $MIS_REPO
 cd mises-tm
@@ -73,14 +73,11 @@ git checkout $MIS_VER
 make install
 mv $HOME/go/bin/$MIS /usr/bin/
 
-# GenTx generation
-$MIS config chain-id $MIS_ID
-
 # Init generation
+$MIS config chain-id $MIS_ID
 $MIS init $MIS_NODENAME --chain-id $MIS_ID
 
 # Download genesis and addrbook
-cd $HOME
 curl -s $MIS_GENESIS | jq .result.genesis > ~/$MIS_FOLDER/config/genesis.json
 
 # Set Seeds And Peers
